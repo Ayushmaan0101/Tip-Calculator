@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        .calculator input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .calculator button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .calculator button:hover {
+            background-color: #0056b3;
+        }
+
+        .results {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .results p {
+            font-weight: bold;
+        }
+
+        .results span {
+            color: #007bff;
+            font-size: 1.2em;
+        }
+    </style>
+    <title>Tip Calculator</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Tip Calculator</h1>
+        <div class="calculator">
+            <label for="bill">Total Bill:</label>
+            <input type="number" id="bill" placeholder="Enter the total bill amount">
+            <br>
+            <label for="tip">Tip Percentage:</label>
+            <input type="number" id="tip" placeholder="Enter tip percentage (e.g., 5, 10, 15)">
+            <br>
+            <label for="people">Number of People:</label>
+            <input type="number" id="people" placeholder="Enter the number of people">
+            <br>
+            <button id="calculate">Calculate</button>
+        </div>
+        <div class="results">
+            <p>Total Bill: <span id="totalBill"></span> rs.</p>
+            <p>Each person should pay: <span id="splitAmount"></span> rs.</p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const billInput = document.getElementById("bill");
+            const tipInput = document.getElementById("tip");
+            const peopleInput = document.getElementById("people");
+            const calculateButton = document.getElementById("calculate");
+            const totalBillOutput = document.getElementById("totalBill");
+            const splitAmountOutput = document.getElementById("splitAmount");
+            const results = document.querySelector(".results");
+
+            calculateButton.addEventListener("click", function () {
+                const bill = parseFloat(billInput.value);
+                const tipPercentage = parseInt(tipInput.value);
+                const numberOfPeople = parseInt(peopleInput.value);
+
+                if (isNaN(bill) || isNaN(tipPercentage) || isNaN(numberOfPeople)) {
+                    alert("Please enter valid values.");
+                    return;
+                }
+
+                const tipAmount = (bill * tipPercentage) / 100;
+                const totalBill = bill + tipAmount;
+                const splitAmount = totalBill / numberOfPeople;
+
+                totalBillOutput.textContent = totalBill.toFixed(2);
+                splitAmountOutput.textContent = splitAmount.toFixed(2);
+
+                // Show the results
+                results.style.display = "block";
+            });
+        });
+    </script>
+</body>
+</html>
